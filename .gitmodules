@@ -1,3 +1,3 @@
-[submodule "solin_public"]
+[submodule "public"]
 	path = public
 	url = https://github.com/shadhog/solin_public
