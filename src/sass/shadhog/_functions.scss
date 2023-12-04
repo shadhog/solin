@@ -1,0 +1,146 @@
+$white: #ffffff;
+$solftWhite: #f0f0f0;
+$darkBlack: #000000;
+$softBlack: #1a1a1a;
+$red: #c81f1f;
+$aqua: #1ec3e1;
+$lightGrey: #999999;
+$hardGrey: #111111;
+$steelBlue: #093e47;
+$roboto: roboto, Rajdhani, sans-serif;
+$thin: 100;
+$light: 300;
+$normal: 400;
+$medium: 500;
+$bold: 600;
+$black: 900;
+
+@mixin border-radius($radius: 10px) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+// .border-radius { @include border-radius(); }
+
+
+
+@mixin transform($rotate: 90deg) {
+	-moz-transform: rotate($rotate+deg);
+	-webkit-transform: rotate($rotate+deg);
+	-o-transform: rotate($rotate+deg);
+	-ms-transform: rotate($rotate+deg);
+	transform: rotate($rotate+deg);
+}
+// .transform { @include transform(); }
+
+
+@mixin transition($time, $property: all) {
+    -webkit-transition: $property $time+s ease-in-out;
+    -moz-transition: $property $time+s ease-in-out;
+    -ms-transition: $property $time+s ease-in-out;
+    -o-transition: $property $time+s ease-in-out;
+    transition: $property $time+s ease-in-out;
+}
+// .transition { @include transition(0.2, background); }
+
+@mixin background-size($property: initial) {
+    -webkit-background-size: $property;
+    -moz-background-size: $property;
+    -o-background-size: $property;
+    background-size: $property;
+}
+// .transition { @include background-size(cover); }
+
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+// .box-shadow {
+// 		@include box-shadow(1px, 2px, 3px, #fff, true) 
+// }
+
+
+
+@function calculate-width ($col-span) {
+    @return 100% / $col-span 
+}
+// .calculate-width-two {
+//    width: calculate-width(2); // spans 2 columns, width = 50%
+// }
+
+// .calculate-width-three {
+//     width: calculate-width(3); // spans 3 columns, width = 33.3%
+// }
+
+
+
+@mixin horizontal-divs ($div, $vertical: top, $center: left) {
+	display: inline-block;
+	vertical-align: $vertical;   
+	width: 100% / $div;
+	@if $center == 'last' {
+		margin-right: 0;
+		margin-left: 0;
+	} @else {
+		@if $center == 'center' {
+			margin-right: -2px;
+			margin-left: -2px;
+		} @else {
+			margin-right: -4px;
+			margin-left: 0;
+		}
+	}
+}
+// .box {
+// 		@include horizontal-divs(2, top);
+// }
+// .box2 {
+// 		@include horizontal-divs(2, top, last);
+// }
+
+
+
+// RGBA()
+// .color-alpha {
+// 		color: rgba(#ffffff,0.65);
+// }
+
+
+
+@mixin respond-to($max-width, $min-width:false) {
+  @if $min-width == false {
+	$max-width: $max-width - 1 + 'px';
+    @media screen and (max-width: $max-width) { @content; }
+  }
+  @else {
+	$max-width: $max-width - 1 + 'px';
+	$min-width: $min-width + 'px';
+    @media screen and (min-width: $min-width) and (max-width: $max-width) { @content; }
+  }
+}
+
+@mixin background-image-cover($image) {
+    $path: '../images/' + $image;
+    background-image: url($path);
+    background-repeat: no-repeat;
+    background-position: center center;
+    @include background-size(cover);
+}
+// @include background-image-cover('background-top.jpg');
+
+// .respond-to {
+//  	 float: left;
+//  	 width: 250px;
+//  	 @include respond-to(1200) { width: 100% ;}
+//  	 @include respond-to(800,600) { width: 125px; }
+//  	 @include respond-to(600) { float: none; }
+// }
